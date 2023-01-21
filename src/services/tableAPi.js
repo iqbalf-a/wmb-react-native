@@ -10,7 +10,7 @@ export const addTable = (data) => {
     })
 }
 
-export const updateTableById = (table) => {
+export const updateTable = (table) => {
     return api.put("/tables", table)
 }
 

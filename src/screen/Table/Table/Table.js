@@ -51,8 +51,9 @@ const RenderTable = (props) => {
 
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
-                }, {backgroundColor: 'grey'}]}
+                }, {backgroundColor: data?.item.status === 'Available' ? 'grey' : 'silver'}]}
                                   onPress={onNavigate}
+                                  disabled={data?.item.status !== 'Available'}
                 >
                     <Ionicons name={"create-outline"} size={16}
                               color={'white'}

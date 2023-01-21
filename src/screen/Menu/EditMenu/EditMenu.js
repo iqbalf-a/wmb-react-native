@@ -6,17 +6,15 @@ import {saveToken} from "../../../utils/token";
 import useFetchMutation from "../../../hook/useFetchMutation";
 import {login} from "../../../services/authApi";
 import {validateEmail} from "../../../utils/validateEmail";
-import {addMenu, updateMenuById} from "../../../services/menuApi";
+import {addMenu, updateMenu} from "../../../services/menuApi";
 import ItemInput from "../../../components/ItemInput/ItemInput";
+import {addTable} from "../../../services/tableAPi";
 
 const EditMenu = (props) => {
     const {data: menu} = props.route.params
     const [id, setId] = React.useState(menu.item.id)
     const [menuName, setMenuName] = React.useState(menu.item.name)
     const [price, setPrice] = React.useState(menu.item.price)
-
-
-
 
     const [isIdFocus, setIsIdFocus] = React.useState(false)
     const [isMenuNameFocus, setIsMenuNameFocus] = React.useState(false)
@@ -28,7 +26,7 @@ const EditMenu = (props) => {
         props.navigation.navigate("Menu")
     }
 
-    const {fetchMutation, loading} = useFetchMutation(updateMenuById(menu.item), onSuccess)
+    const {fetchMutation, loading} = useFetchMutation(updateMenu(menu.item), onSuccess)
 
     const onSubmit = async (e) => {
         e.preventDefault()

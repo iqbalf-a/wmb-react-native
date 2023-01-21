@@ -10,7 +10,7 @@ export const addMenu = (data) => {
     })
 }
 
-export const updateMenuById = (menu) => {
+export const updateMenu = (menu) => {
     return api.put("/menus", menu)
 }
 
