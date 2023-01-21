@@ -3,7 +3,7 @@ import Button from "../../components/Button/Button";
 
 const Settings = (props) => {
     const onLogout = () => {
-        props.navigation.navigate("Intro")
+        props.navigation.navigate("Auth")
     }
     return (
         <View style={{backgroundColor: "red", flex: 1}}>

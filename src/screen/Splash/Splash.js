@@ -1,5 +1,6 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {Image, Text, TouchableOpacity, View} from "react-native";
+import WhiteLogo from "../../../assets/white_logo.png";
 
 const Splash = (props) => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false)
@@ -16,14 +17,12 @@ const Splash = (props) => {
     React.useEffect(() => {
         setTimeout(() => {
             onNavigate()
-        }, 100)
+        }, 200)
     })
 
     return (
-        <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-            <Text>
-                Splash nich
-            </Text>
+        <View style={{justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: 'yellowgreen'}}>
+            <Image source={WhiteLogo} style={{height: 200}}/>
         </View>
     )
 }

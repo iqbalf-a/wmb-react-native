@@ -1,16 +1,11 @@
 import {createStackNavigator, TransitionPreset, TransitionPresets} from "@react-navigation/stack";
 import Login from "../screen/Login/Login";
-import Intro from "../screen/Intro/Intro";
+import Splash from "../screen/Splash/Splash";
 
 const Stack = createStackNavigator()
 const LoginStack = () => {
     return (
         <Stack.Navigator screenOptions={{...TransitionPresets.SlideFromRightIOS}}>
-            <Stack.Screen name="Intro" component={Intro}
-                          options={{
-                              headerShown: false,
-                          }}
-            />
             <Stack.Screen name="Login" component={Login}
                           options={{
                               headerShown: false,
