@@ -75,7 +75,7 @@ const Menu = () => {
     )
     const onDelete = (id, name) => () => {
 
-        Alert.alert('Confirmation', 'Are you sure you want to remove ' + name, [
+        Alert.alert('Delete Confirmation', 'Are you sure you want to delete ' + name, [
             {
                 text: 'Cancel',
             },
