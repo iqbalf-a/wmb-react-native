@@ -1,5 +1,5 @@
 import {
-    ActivityIndicator,
+    ActivityIndicator, Alert,
     FlatList,
     StyleSheet,
     Text,
@@ -9,11 +9,12 @@ import {
     View
 } from "react-native";
 import React from "react";
-import {getMenus} from "../../../services/menuApi";
+import {deleteMenuById, getMenus} from "../../../services/menuApi";
 import useFetchQuery from "../../../hook/useFetchQuery";
 import Button from "../../../components/Button/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
+import useFetchMutation from "../../../hook/useFetchMutation";
 
 const RenderMenu = (props) => {
     const {data, onDelete} = props;
@@ -21,6 +22,7 @@ const RenderMenu = (props) => {
     const onNavigate = () => {
         navigation.navigate("Edit Menu", {data: data})
     }
+
 
     return (
         <View style={{
@@ -49,7 +51,9 @@ const RenderMenu = (props) => {
 
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
-                }, {backgroundColor: 'red'}]}>
+                }, {backgroundColor: 'red'}]}
+                                  onPress={onDelete(data?.item.id, data?.item.name)}
+                >
                     <Ionicons name={"trash-outline"} size={16}
                               color={'white'}
                     />
@@ -64,6 +68,25 @@ const RenderMenu = (props) => {
 
 const Menu = () => {
     const {data, loading} = useFetchQuery(getMenus)
+
+    const {fetchMutation: deleteCourseMutation} = useFetchMutation(
+        deleteMenuById,
+        () => alert("Berhasil ditambah")
+    )
+    const onDelete = (id, name) => () => {
+
+        Alert.alert('Confirmation', 'Are you sure you want to remove ' + name, [
+            {
+                text: 'Cancel',
+            },
+            {
+                text: 'OK', onPress: async () => {
+                    await deleteMenuById(id)
+                    alert("Berhasil dihapus")
+                }
+            },
+        ]);
+    }
     return (
         <View style={{flex: 1}}>
             {
@@ -79,7 +102,7 @@ const Menu = () => {
                             <FlatList
                                 initialNumToRender={5}
                                 data={data.data}
-                                renderItem={(data) => <RenderMenu data={data}/>}
+                                renderItem={(data) => <RenderMenu data={data} onDelete={onDelete}/>}
                                 keyExtractor={(item, index) => index}
                                 refreshing={loading}
                             />
