@@ -20,21 +20,22 @@ const AddMenu = (props) => {
     const [isPriceFocus, setIsPriceFocus] = React.useState(false)
 
 
-    const onSuccess = async (token) => {
-
-        if (token) {
-            await saveToken(token)
-            props.navigation.navigate("Home")
-        } else {
-            alert("Incorrect login username or password")
-        }
+    const onSuccess = () => {
+        alert('Data berhasil ditambah')
+        props.navigation.navigate("Menu")
     }
 
     const {fetchMutation, loading} = useFetchMutation(addMenu, onSuccess)
 
-    const onSubmit = async () => {
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        const newMenu = {
+            id: id,
+            name: menuName,
+            price: price
+        }
 
-        await fetchMutation({email: id, password: menuName})
+        await fetchMutation(newMenu)
     }
 
     const onBack = () => {
@@ -96,6 +97,7 @@ const AddMenu = (props) => {
                         handleFocus={() => handleFocus('price')}
                         placeholder="Price"
                         onChangeText={setPrice}
+                        keyboardType="numeric"
                     />
 
                     <Button text="Add" onPress={onSubmit} disabled={!(id && menuName && price) || loading}/>

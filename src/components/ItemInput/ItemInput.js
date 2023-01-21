@@ -15,6 +15,7 @@ const ItemInput = (props) => {
                        onFocus={props.handleFocus}
                        placeholder={props.placeholder}
                        onChangeText={props.onChangeText}
+                       keyboardType={props.keyboardType}
             />
         </View>
     )
