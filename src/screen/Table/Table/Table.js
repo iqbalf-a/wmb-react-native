@@ -38,7 +38,7 @@ const RenderTable = (props) => {
 
             <View style={{flexDirection: 'row'}}>
                 <Text style={{
-                    backgroundColor: data.item.status === 'Available' ? 'green' : 'silver',
+                    backgroundColor: data?.item.status === 'Available' ? 'green' : 'silver',
                     paddingHorizontal: 10,
                     paddingVertical: 5,
                     marginTop: 10,
@@ -62,8 +62,9 @@ const RenderTable = (props) => {
 
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
-                }, {backgroundColor: 'red'}]}
+                }, {backgroundColor: data?.item.status === 'Available' ? 'red' : 'silver'}]}
                                   onPress={onDelete(data?.item.id, data?.item.nomor)}
+                                  disabled={data?.item.status !== 'Available'}
                 >
                     <Ionicons name={"trash-outline"} size={16}
                               color={'white'}
