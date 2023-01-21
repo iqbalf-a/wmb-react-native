@@ -1,37 +1,46 @@
-import {Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
+import {
+    FlatList,
+    Keyboard,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View
+} from "react-native";
 import Button from "../../../components/Button/Button";
 import React from "react";
 import useFetchMutation from "../../../hook/useFetchMutation";
-import {addMenu} from "../../../services/menuApi";
 import ItemInput from "../../../components/ItemInput/ItemInput";
+import {addTable} from "../../../services/tableAPi";
 
-const AddMenu = (props) => {
+const AddTable = (props) => {
     const [id, setId] = React.useState('')
-    const [menuName, setMenuName] = React.useState('')
-    const [price, setPrice] = React.useState('')
+    const [nomor, setNomor] = React.useState('')
+    const [status, setStatus] = React.useState('')
 
 
     const [isIdFocus, setIsIdFocus] = React.useState(false)
-    const [isMenuNameFocus, setIsMenuNameFocus] = React.useState(false)
-    const [isPriceFocus, setIsPriceFocus] = React.useState(false)
+    const [isNomorFocus, setIsNomorFocus] = React.useState(false)
+    const [isStatusFocus, setIsStatusFocus] = React.useState(false)
 
 
     const onSuccess = () => {
         alert('Data berhasil ditambah')
-        props.navigation.navigate("Menu")
+        props.navigation.navigate("Table")
     }
 
-    const {fetchMutation, loading} = useFetchMutation(addMenu, onSuccess)
+    const {fetchMutation, loading} = useFetchMutation(addTable, onSuccess)
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        const newMenu = {
+        const newTable = {
             id: id,
-            name: menuName,
-            price: price
+            nomor: nomor,
+            status: status
         }
 
-        await fetchMutation(newMenu)
+        await fetchMutation(newTable)
     }
 
     const onBack = () => {
@@ -42,18 +51,18 @@ const AddMenu = (props) => {
         switch (value) {
             case 'id':
                 setIsIdFocus(true)
-                setIsMenuNameFocus(false)
-                setIsPriceFocus(false)
+                setIsNomorFocus(false)
+                setIsStatusFocus(false)
                 break
-            case 'menuName':
-                setIsMenuNameFocus(true)
+            case 'nomor':
+                setIsNomorFocus(true)
                 setIsIdFocus(false)
-                setIsPriceFocus(false)
+                setIsStatusFocus(false)
                 break
-            case 'price':
-                setIsPriceFocus(true)
+            case 'status':
+                setIsStatusFocus(true)
                 setIsIdFocus(false)
-                setIsMenuNameFocus(false)
+                setIsNomorFocus(false)
                 break
         }
     }
@@ -61,8 +70,9 @@ const AddMenu = (props) => {
     const handleKeyboardDismiss = () => {
         Keyboard.dismiss()
         setIsIdFocus(false)
-        setIsPriceFocus(false)
+        setIsStatusFocus(false)
     }
+
     return (
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
             <View style={{flex: 1}}>
@@ -75,33 +85,32 @@ const AddMenu = (props) => {
                 }}>
                     <ItemInput
                         isItemFocus={isIdFocus}
-                        icon="key-outline"
                         handleFocus={() => handleFocus('id')}
                         placeholder="Id"
                         onChangeText={setId}
                     />
                     <ItemInput
-                        isItemFocus={isMenuNameFocus}
-                        icon="fast-food-outline"
-                        handleFocus={() => handleFocus('menuName')}
-                        placeholder="Menu Name"
-                        onChangeText={setMenuName}
+                        isItemFocus={isNomorFocus}
+                        handleFocus={() => handleFocus('nomor')}
+                        placeholder="Nomor"
+                        onChangeText={setNomor}
                     />
                     <ItemInput
-                        isItemFocus={isPriceFocus}
-                        icon="pricetag-outline"
-                        handleFocus={() => handleFocus('price')}
-                        placeholder="Price"
-                        onChangeText={setPrice}
+                        isItemFocus={isStatusFocus}
+                        handleFocus={() => handleFocus('status')}
+                        placeholder="Status"
+                        onChangeText={setStatus}
                         keyboardType="numeric"
                     />
 
-                    <Button text="Add" onPress={onSubmit} disabled={!(id && menuName && price) || loading}/>
+
+                    <Button text="Add" onPress={onSubmit} disabled={!(id && nomor && status) || loading}/>
                     <Button text="Cancel" onPress={onBack}/>
                 </View>
             </View>
         </TouchableWithoutFeedback>
+
     )
 }
 
-export default AddMenu
+export default AddTable

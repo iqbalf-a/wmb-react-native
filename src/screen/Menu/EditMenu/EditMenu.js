@@ -10,13 +10,11 @@ import {addMenu, updateMenuById} from "../../../services/menuApi";
 import ItemInput from "../../../components/ItemInput/ItemInput";
 
 const EditMenu = (props) => {
-    console.log('props', props.route.params.data)
     const {data: menu} = props.route.params
     const [id, setId] = React.useState(menu.item.id)
     const [menuName, setMenuName] = React.useState(menu.item.name)
     const [price, setPrice] = React.useState(menu.item.price)
 
-    console.log('price', price)
 
 
 

@@ -3,7 +3,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import React from "react";
 
 const ItemInput = (props) => {
-    console.log('value', props.value)
     return (
         <View style={[styles.inputSection, {
             borderColor: props.isItemFocus ? 'yellowgreen' : 'grey'

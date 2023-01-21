@@ -9,8 +9,8 @@ import {saveToken} from "../../utils/token";
 import {validateEmail} from "../../utils/validateEmail";
 
 const Login = (props) => {
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
+    const [email, setEmail] = React.useState('admin@example.com')
+    const [password, setPassword] = React.useState('12345678')
 
 
     const [isEmailFocus, setIsEmailFocus] = React.useState(false)

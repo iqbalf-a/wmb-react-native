@@ -9,18 +9,18 @@ import {
     View
 } from "react-native";
 import React from "react";
-import {deleteMenuById, getMenus} from "../../../services/menuApi";
 import useFetchQuery from "../../../hook/useFetchQuery";
 import Button from "../../../components/Button/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
 import useFetchMutation from "../../../hook/useFetchMutation";
+import {deleteTableById, getTables} from "../../../services/tableAPi";
 
-const RenderMenu = (props) => {
+const RenderTable = (props) => {
     const {data, onDelete} = props;
     const navigation = useNavigation()
     const onNavigate = () => {
-        navigation.navigate("Edit Menu", {data: data})
+        navigation.navigate("Edit Table", {data: data})
     }
 
 
@@ -34,30 +34,41 @@ const RenderMenu = (props) => {
             backgroundColor: 'white',
             borderRadius: 20
         }}>
-            <Text style={{fontSize: 16}}>{data.item.name}</Text>
-            <Text style={{fontSize: 14, color: 'grey'}}>Rp. {data.item.price}</Text>
+            <Text style={{fontSize: 16}}>Table {data.item.nomor}</Text>
+
+            <View style={{flexDirection: 'row'}}>
+                <Text style={{
+                    backgroundColor: data.item.status === 'Available' ? 'green' : 'silver',
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                    marginTop: 10,
+                    borderRadius: 50,
+                    fontSize: 10,
+                    color: 'white'
+                }}>{'\u2B24'} {data.item.status}</Text>
+            </View>
             <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
 
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
-                }, {backgroundColor: 'silver'}]}
+                }, {backgroundColor: 'grey'}]}
                                   onPress={onNavigate}
                 >
                     <Ionicons name={"create-outline"} size={16}
                               color={'white'}
                     />
-                    <Text style={{color: 'white', marginLeft: 10}}>Edit</Text>
+                    <Text style={{color: 'white', marginLeft: 10, fontSize: 12}}>Edit</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
                 }, {backgroundColor: 'red'}]}
-                                  onPress={onDelete(data?.item.id, data?.item.name)}
+                                  onPress={onDelete(data?.item.id, data?.item.nomor)}
                 >
                     <Ionicons name={"trash-outline"} size={16}
                               color={'white'}
                     />
-                    <Text style={{color: 'white', marginLeft: 10}}>Delete</Text>
+                    <Text style={{color: 'white', marginLeft: 10, fontSize: 12}}>Delete</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -66,22 +77,22 @@ const RenderMenu = (props) => {
 
 }
 
-const Menu = () => {
-    const {data, loading} = useFetchQuery(getMenus)
+const Table = () => {
+    const {data, loading} = useFetchQuery(getTables)
 
-    const {fetchMutation: deleteMenuMutation} = useFetchMutation(
-        deleteMenuById,
+    const {fetchMutation: deleteTableMutation} = useFetchMutation(
+        deleteTableById,
         () => alert("Berhasil ditambah")
     )
     const onDelete = (id, name) => () => {
 
-        Alert.alert('Delete Confirmation', 'Are you sure you want to delete ' + name, [
+        Alert.alert('Delete Confirmation', 'Are you sure you want to delete\nTable ' + name, [
             {
                 text: 'Cancel',
             },
             {
                 text: 'OK', onPress: async () => {
-                    await deleteMenuById(id)
+                    await deleteTableById(id)
                     alert("Berhasil dihapus")
                 }
             },
@@ -99,7 +110,7 @@ const Menu = () => {
                 <FlatList
                     initialNumToRender={5}
                     data={data.data}
-                    renderItem={(data) => <RenderMenu data={data} onDelete={onDelete}/>}
+                    renderItem={(data) => <RenderTable data={data} onDelete={onDelete}/>}
                     keyExtractor={(item, index) => index}
                     refreshing={loading}
                 />
@@ -116,9 +127,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 50,
-        paddingVertical: 15,
+        paddingVertical: 5,
         paddingHorizontal: 20,
     }
 })
 
-export default Menu
+export default Table

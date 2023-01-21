@@ -1,7 +1,7 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Menu from "../screen/Menu/Menu/Menu";
 import Icon from "../components/Icon/Icon";
-import Table from "../screen/Table/Table";
+import Table from "../screen/Table/Table/Table";
 import Customer from "../screen/Customer/Customer";
 import Settings from "../screen/Settings/Settings";
 import React from "react";
@@ -9,6 +9,7 @@ import {Button, Text, TouchableOpacity} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MenuStack from "./MenuStack";
 import {useNavigation} from "@react-navigation/native";
+import TableStack from "./TableStack";
 
 
 const Tabs = createBottomTabNavigator();
@@ -23,12 +24,12 @@ const BOTTOM_TAB_ITEM = [
         headerShown: false
     },
     {
-        name: "Table",
-        component: Table,
+        name: "Table Stack",
+        component: TableStack,
         iconActive: "albums",
         iconInactive: "albums-outline",
         text: "Table",
-        headerShown: true
+        headerShown: false
     },
     {
         name: "People",
