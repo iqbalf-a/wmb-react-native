@@ -11,7 +11,7 @@ export const addMenu = (data) => {
 }
 
 export const updateMenuById = (menu) => {
-    return api.put("/menus/" + menu.id, menu)
+    return api.put("/menus", menu)
 }
 
 export const deleteMenuById = (id) => {

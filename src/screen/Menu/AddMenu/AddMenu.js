@@ -1,13 +1,13 @@
 import {Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Button from "../../components/Button/Button";
+import Button from "../../../components/Button/Button";
 import React from "react";
-import {saveToken} from "../../utils/token";
-import useFetchMutation from "../../hook/useFetchMutation";
-import {login} from "../../services/authApi";
-import {validateEmail} from "../../utils/validateEmail";
-import {addMenu} from "../../services/menuApi";
-import ItemInput from "../../components/ItemInput/ItemInput";
+import {saveToken} from "../../../utils/token";
+import useFetchMutation from "../../../hook/useFetchMutation";
+import {login} from "../../../services/authApi";
+import {validateEmail} from "../../../utils/validateEmail";
+import {addMenu} from "../../../services/menuApi";
+import ItemInput from "../../../components/ItemInput/ItemInput";
 
 const AddMenu = (props) => {
     const [id, setId] = React.useState('')

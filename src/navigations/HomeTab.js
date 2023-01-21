@@ -1,5 +1,5 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import Menu from "../screen/Menu/Menu";
+import Menu from "../screen/Menu/Menu/Menu";
 import Icon from "../components/Icon/Icon";
 import Table from "../screen/Table/Table";
 import Customer from "../screen/Customer/Customer";

@@ -9,13 +9,18 @@ import {
     View
 } from "react-native";
 import React from "react";
-import {getMenus} from "../../services/menuApi";
-import useFetchQuery from "../../hook/useFetchQuery";
-import Button from "../../components/Button/Button";
+import {getMenus} from "../../../services/menuApi";
+import useFetchQuery from "../../../hook/useFetchQuery";
+import Button from "../../../components/Button/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {useNavigation} from "@react-navigation/native";
 
 const RenderMenu = (props) => {
     const {data, onDelete} = props;
+    const navigation = useNavigation()
+    const onNavigate = () => {
+        navigation.navigate("Edit Menu", {data: data})
+    }
 
     return (
         <View style={{
@@ -30,14 +35,18 @@ const RenderMenu = (props) => {
             <Text style={{fontSize: 16}}>{data.item.name}</Text>
             <Text style={{fontSize: 14, color: 'grey'}}>Rp. {data.item.price}</Text>
             <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
-                }, {backgroundColor: 'silver'}]}>
+                }, {backgroundColor: 'silver'}]}
+                                  onPress={onNavigate}
+                >
                     <Ionicons name={"create-outline"} size={16}
                               color={'white'}
                     />
                     <Text style={{color: 'white', marginLeft: 10}}>Edit</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
                 }, {backgroundColor: 'red'}]}>
@@ -54,7 +63,6 @@ const RenderMenu = (props) => {
 }
 
 const Menu = () => {
-    const [menus, setMenus] = React.useState([])
     const {data, loading} = useFetchQuery(getMenus)
     return (
         <View style={{flex: 1}}>
@@ -67,7 +75,7 @@ const Menu = () => {
                     )
                     :
                     (
-                        <View >
+                        <View>
                             <FlatList
                                 initialNumToRender={5}
                                 data={data.data}
