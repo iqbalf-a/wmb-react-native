@@ -89,26 +89,21 @@ const Menu = () => {
     }
     return (
         <View style={{flex: 1}}>
-            {
-                loading ?
-                    (
-                        <View style={{position: 'absolute', top: '50%', right: '50%', left: '50%'}}>
-                            <ActivityIndicator size="large" color="yellowgreen"/>
-                        </View>
-                    )
-                    :
-                    (
-                        <View>
-                            <FlatList
-                                initialNumToRender={5}
-                                data={data.data}
-                                renderItem={(data) => <RenderMenu data={data} onDelete={onDelete}/>}
-                                keyExtractor={(item, index) => index}
-                                refreshing={loading}
-                            />
-                        </View>
-                    )
-            }
+            {loading && (
+                <View style={{position: 'absolute', top: '50%', right: '50%', left: '50%'}}>
+                    <ActivityIndicator size="large" color="yellowgreen"/>
+                </View>
+            )}
+
+            <View>
+                <FlatList
+                    initialNumToRender={5}
+                    data={data.data}
+                    renderItem={(data) => <RenderMenu data={data} onDelete={onDelete}/>}
+                    keyExtractor={(item, index) => index}
+                    refreshing={loading}
+                />
+            </View>
         </View>
 
 
