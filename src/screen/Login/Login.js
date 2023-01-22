@@ -1,16 +1,17 @@
-import {Alert, Keyboard, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
-import React from "react";
+import {Alert, Image, Keyboard, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
+import React, {useEffect} from "react";
 import Button from "../../components/Button/Button";
 import {StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {login} from "../../services/authApi";
 import useFetchMutation from "../../hook/useFetchMutation";
-import {saveToken} from "../../utils/token";
+import {getToken, removeToken, saveToken} from "../../utils/token";
 import {validateEmail} from "../../utils/validateEmail";
+import BaseLogo from "../../../assets/base_logo.png"
 
 const Login = (props) => {
-    const [email, setEmail] = React.useState('admin@example.com')
-    const [password, setPassword] = React.useState('12345678')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
 
 
     const [isEmailFocus, setIsEmailFocus] = React.useState(false)
@@ -20,12 +21,10 @@ const Login = (props) => {
     const [isEmailValid, setIsEmailValid] = React.useState(false)
     const [isPasswordValid, setIsPasswordValid] = React.useState(false)
 
-
     const onSuccess = async (token) => {
-
         if (token) {
             await saveToken(token)
-            props.navigation.navigate("Home")
+            props.navigation.navigate('Home')
         } else {
             alert("Incorrect login username or password")
         }
@@ -34,6 +33,8 @@ const Login = (props) => {
     const {fetchMutation, loading} = useFetchMutation(login, onSuccess)
 
     const onPress = async () => {
+        setIsEmailValid(false)
+        setIsPasswordValid(false)
         if (!validateEmail(email)) {
             setIsEmailValid(true)
             return
@@ -43,8 +44,7 @@ const Login = (props) => {
             setIsPasswordValid(true)
             return
         }
-        setIsEmailValid(false)
-        setIsPasswordValid(false)
+
         await fetchMutation({email, password})
     }
 
@@ -70,14 +70,16 @@ const Login = (props) => {
 
     return (
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-            <View style={{flex: 1, backgroundColor: 'yellowgreen', justifyContent: 'center'}}>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
+                <View style={styles.containerLogo}>
+                    <Image source={BaseLogo} style={styles.logo}/>
+                </View>
                 <View style={{
                     borderRadius: 15,
                     backgroundColor: 'white',
-                    paddingHorizontal: 30,
-                    padding: 50,
-                    marginHorizontal: 30
+                    marginHorizontal: 30,
                 }}>
+
                     <Text style={{fontSize: 20, fontWeight: 'bold', marginBottom: 5}}>
                         Getting started
                     </Text>
@@ -86,25 +88,26 @@ const Login = (props) => {
                     </Text>
 
                     <View style={[styles.inputSection, {
-                        borderColor: isEmailFocus ? 'yellowgreen' : 'grey'
+                        borderColor: isEmailFocus ? 'green' : 'silver'
                     }, {backgroundColor: isEmailFocus ? 'white' : '#fafafa'}]}>
                         <Ionicons name={"person-outline"} size={20}
-                                  color={isEmailFocus ? 'yellowgreen' : 'grey'}
+                                  color={isEmailFocus ? 'green' : 'silver'}
 
                         />
                         <TextInput style={{marginLeft: 10, flex: 1, padding: 5}}
                                    onFocus={handleEmailFocus}
                                    placeholder={"Email"}
                                    onChangeText={setEmail}
+                                   keyboardType={"email-address"}
                         />
                     </View>
                     {isEmailValid && <Text style={{color: 'red', fontSize: 12}}>Invalid email format</Text>}
 
                     <View style={[styles.inputSection, {
-                        borderColor: isPasswordFocus ? 'yellowgreen' : 'grey',
+                        borderColor: isPasswordFocus ? 'green' : 'silver',
                     }]}>
                         <Ionicons name={"lock-closed-outline"} size={20}
-                                  color={isPasswordFocus ? 'yellowgreen' : 'grey'}
+                                  color={isPasswordFocus ? 'green' : 'silver'}
 
                         />
                         <TextInput style={{marginLeft: 10, flex: 1, padding: 5}}
@@ -136,6 +139,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderWidth: 1,
         marginVertical: 10
+    },
+    logo: {
+        height: 200,
+        resizeMode: 'contain',
+    },
+    containerLogo: {
+        alignItems: 'center',
+        marginVertical: 20
     }
 })
 

@@ -1,14 +1,11 @@
-import {Keyboard, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import {Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
 import Button from "../../../components/Button/Button";
 import React from "react";
-import {saveToken} from "../../../utils/token";
 import useFetchMutation from "../../../hook/useFetchMutation";
-import {login} from "../../../services/authApi";
-import {validateEmail} from "../../../utils/validateEmail";
-import {addMenu, updateMenu} from "../../../services/menuApi";
+import {updateMenu} from "../../../services/menuApi";
 import ItemInput from "../../../components/ItemInput/ItemInput";
-import {addTable} from "../../../services/tableAPi";
+import ButtonOutline from "../../../components/ButtonOutline/ButtonOutline";
+
 
 const EditMenu = (props) => {
     const {data: menu} = props.route.params
@@ -70,47 +67,54 @@ const EditMenu = (props) => {
     }
     return (
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-            <View style={{flex: 1}}>
-                <View style={{
-                    borderRadius: 15,
-                    backgroundColor: 'white',
-                    paddingHorizontal: 30,
-                    padding: 50,
-                    flex: 1
-                }}>
-                    <ItemInput
-                        isItemFocus={isIdFocus}
-                        icon="key-outline"
-                        handleFocus={() => handleFocus('id')}
-                        placeholder="Id"
-                        onChangeText={setId}
-                        value={id}
-                        editable={false}
-                    />
-                    <ItemInput
-                        isItemFocus={isMenuNameFocus}
-                        icon="fast-food-outline"
-                        handleFocus={() => handleFocus('menuName')}
-                        placeholder="Menu Name"
-                        onChangeText={setMenuName}
-                        value={menuName}
-                    />
-                    <ItemInput
-                        isItemFocus={isPriceFocus}
-                        icon="pricetag-outline"
-                        handleFocus={() => handleFocus('price')}
-                        placeholder="Price"
-                        onChangeText={setPrice}
-                        keyboardType="numeric"
-                        value={price.toString()}
-                    />
+            <View style={styles.container}>
+                <ItemInput
+                    isItemFocus={isIdFocus}
+                    icon="key-outline"
+                    handleFocus={() => handleFocus('id')}
+                    placeholder="Id"
+                    onChangeText={setId}
+                    value={id}
+                    editable={false}
+                />
+                <ItemInput
+                    isItemFocus={isMenuNameFocus}
+                    icon="fast-food-outline"
+                    handleFocus={() => handleFocus('menuName')}
+                    placeholder="Menu Name"
+                    onChangeText={setMenuName}
+                    value={menuName}
+                />
+                <ItemInput
+                    isItemFocus={isPriceFocus}
+                    icon="pricetag-outline"
+                    handleFocus={() => handleFocus('price')}
+                    placeholder="Price"
+                    onChangeText={setPrice}
+                    keyboardType="numeric"
+                    value={price.toString()}
+                />
 
-                    <Button text="Edit" onPress={onSubmit} disabled={!(id && menuName && price) || loading}/>
-                    <Button text="Cancel" onPress={onBack}/>
-                </View>
+                <Button text="Edit" onPress={onSubmit} disabled={!(id && menuName && price) || loading}/>
+                <ButtonOutline onPress={onBack} text="Cancel" />
             </View>
         </TouchableWithoutFeedback>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, borderRadius: 15,
+        backgroundColor: 'white',
+        paddingHorizontal: 30,
+        padding: 30
+    },
+    button: {
+        paddingHorizontal: 30,
+        paddingVertical: 15,
+        borderRadius: 50,
+        marginTop: 20
+    },
+})
 
 export default EditMenu

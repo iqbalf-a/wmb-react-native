@@ -5,10 +5,10 @@ import React from "react";
 const ItemInput = (props) => {
     return (
         <View style={[styles.inputSection, {
-            borderColor: props.isItemFocus ? 'yellowgreen' : 'grey'
+            borderColor: props.isItemFocus ? 'green' : 'grey'
         }, {backgroundColor: props.isItemFocus ? 'white' : '#fafafa'}]}>
             <Ionicons name={props.icon} size={20}
-                      color={props.isItemFocus ? 'yellowgreen' : 'grey'}
+                      color={props.isItemFocus ? 'green' : 'grey'}
 
             />
             <TextInput style={{marginLeft: 10, flex: 1, padding: 5}}

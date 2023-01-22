@@ -53,18 +53,15 @@ const BOTTOM_TAB_ITEM = [
 const HomeTab = () => {
     return (
         <Tabs.Navigator screenOptions={{
-            tabBarActiveTintColor: "orange",
+            tabBarActiveTintColor: "green",
             tabBarInactiveTintColor: "grey",
             tabBarStyle: {
                 height: 60,
-                position: "absolute",
-                marginBottom: 8,
-                marginHorizontal: 20,
-                paddingHorizontal: 20,
+                paddingHorizontal: 10,
                 paddingVertical: 10,
-                borderRadius: 50,
-
             },
+            tabBarHideOnKeyboard: true,
+
 
         }}>
             {BOTTOM_TAB_ITEM.map((item) => {
@@ -81,12 +78,6 @@ const HomeTab = () => {
                                      tabBarLabel: ({focused, color, size}) => (
                                          <Text style={{color: color, fontSize: 10, marginBottom: 10}}>{item.text}</Text>
                                      ),
-                                     headerStyle: {
-                                         backgroundColor: 'yellowgreen',
-                                     },
-                                     headerTitleStyle: {
-                                         color: 'white'
-                                     },
                                      headerShown: item.headerShown,
                                  }}
                     />

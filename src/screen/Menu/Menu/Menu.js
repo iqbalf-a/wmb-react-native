@@ -15,6 +15,8 @@ import Button from "../../../components/Button/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
 import useFetchMutation from "../../../hook/useFetchMutation";
+import ActionButton from "../../../components/ActionButton/ActionButton";
+import {getToken} from "../../../utils/token";
 
 const RenderMenu = (props) => {
     const {data, onDelete} = props;
@@ -23,47 +25,31 @@ const RenderMenu = (props) => {
         navigation.navigate("Edit Menu", {data: data})
     }
 
-
     return (
-        <View style={{
-            marginVertical: 10,
-            marginHorizontal: 10,
-            elevation: 2,
-            paddingHorizontal: 20,
-            paddingVertical: 20,
-            backgroundColor: 'white',
-            borderRadius: 20
-        }}>
-            <Text style={{fontSize: 16}}>{data.item.name}</Text>
-            <Text style={{fontSize: 14, color: 'grey'}}>Rp. {data.item.price}</Text>
+        <View style={styles.itemContainer}>
+            <Text style={{fontSize: 16, marginBottom: 10}}>{data.item.name}</Text>
+            <View style={{flexDirection: 'row'}}>
+                <Ionicons name={"pricetag-outline"} size={16}
+                          color={'grey'}
+                />
+                <Text style={{fontSize: 14, color: 'grey', marginLeft: 10}}>Rp. {data.item.price}</Text>
+            </View>
+
             <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                <ActionButton icon="create-outline"
+                              text="Edit"
+                              backgroundColor="grey"
+                              onPress={onNavigate}
+                />
+                <ActionButton icon="trash-outline"
+                              text="Delete"
+                              backgroundColor="red"
+                              onPress={onDelete(data?.item.id, data?.item.name)}
+                />
 
-                <TouchableOpacity style={[styles.actionSection, {
-                    borderColor: 'grey'
-                }, {backgroundColor: 'silver'}]}
-                                  onPress={onNavigate}
-                >
-                    <Ionicons name={"create-outline"} size={16}
-                              color={'white'}
-                    />
-                    <Text style={{color: 'white', marginLeft: 10}}>Edit</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={[styles.actionSection, {
-                    borderColor: 'grey'
-                }, {backgroundColor: 'red'}]}
-                                  onPress={onDelete(data?.item.id, data?.item.name)}
-                >
-                    <Ionicons name={"trash-outline"} size={16}
-                              color={'white'}
-                    />
-                    <Text style={{color: 'white', marginLeft: 10}}>Delete</Text>
-                </TouchableOpacity>
             </View>
         </View>
     )
-
-
 }
 
 const Menu = () => {
@@ -74,7 +60,7 @@ const Menu = () => {
         () => alert("Berhasil ditambah")
     )
     const onDelete = (id, name) => () => {
-        Alert.alert('Delete Confirmation', 'Are you sure you want to delete ' + name, [
+        Alert.alert('Delete Confirmation', 'Are you sure you want to delete\n' + name, [
             {
                 text: 'Cancel',
             },
@@ -86,17 +72,17 @@ const Menu = () => {
             },
         ]);
     }
+
     return (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
             {loading && (
-                <View style={{position: 'absolute', top: '50%', right: '50%', left: '50%'}}>
-                    <ActivityIndicator size="large" color="yellowgreen"/>
+                <View style={styles.indicator}>
+                    <ActivityIndicator size="large" color="green"/>
                 </View>
             )}
 
             <View>
                 <FlatList
-                    initialNumToRender={5}
                     data={data.data}
                     renderItem={(data) => <RenderMenu data={data} onDelete={onDelete}/>}
                     keyExtractor={(item, index) => index}
@@ -115,8 +101,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 50,
-        paddingVertical: 15,
+        paddingVertical: 5,
         paddingHorizontal: 20,
+    },
+    indicator: {
+        position: 'absolute',
+        top: '50%',
+        right: '50%',
+        left: '50%',
+    },
+    itemContainer: {
+        marginVertical: 10,
+        marginHorizontal: 10,
+        elevation: 2,
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        backgroundColor: 'white',
+        borderRadius: 20
     }
 })
 

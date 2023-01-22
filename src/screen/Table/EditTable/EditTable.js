@@ -13,6 +13,7 @@ import React from "react";
 import useFetchMutation from "../../../hook/useFetchMutation";
 import ItemInput from "../../../components/ItemInput/ItemInput";
 import {updateTable} from "../../../services/tableAPi";
+import ButtonOutline from "../../../components/ButtonOutline/ButtonOutline";
 
 const EditTable = (props) => {
 
@@ -28,7 +29,6 @@ const EditTable = (props) => {
 
 
     const onSuccess = () => {
-        console.log('sukses nich')
         alert('Data berhasil diubah')
         props.navigation.navigate("Table")
     }
@@ -111,7 +111,7 @@ const EditTable = (props) => {
 
 
                     <Button text="Edit" onPress={onSubmit} disabled={!(id && nomor && status) || loading}/>
-                    <Button text="Cancel" onPress={onBack}/>
+                    <ButtonOutline onPress={onBack} text="Cancel" />
                 </View>
             </View>
         </TouchableWithoutFeedback>

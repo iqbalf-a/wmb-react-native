@@ -13,6 +13,7 @@ import React from "react";
 import useFetchMutation from "../../../hook/useFetchMutation";
 import ItemInput from "../../../components/ItemInput/ItemInput";
 import {addTable} from "../../../services/tableAPi";
+import ButtonOutline from "../../../components/ButtonOutline/ButtonOutline";
 
 const AddTable = (props) => {
     const [id, setId] = React.useState('')
@@ -75,42 +76,49 @@ const AddTable = (props) => {
 
     return (
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-            <View style={{flex: 1}}>
-                <View style={{
-                    borderRadius: 15,
-                    backgroundColor: 'white',
-                    paddingHorizontal: 30,
-                    padding: 50,
-                    flex: 1
-                }}>
-                    <ItemInput
-                        isItemFocus={isIdFocus}
-                        handleFocus={() => handleFocus('id')}
-                        placeholder="Id"
-                        onChangeText={setId}
-                    />
-                    <ItemInput
-                        isItemFocus={isNomorFocus}
-                        handleFocus={() => handleFocus('nomor')}
-                        placeholder="Nomor"
-                        onChangeText={setNomor}
-                    />
-                    <ItemInput
-                        isItemFocus={isStatusFocus}
-                        handleFocus={() => handleFocus('status')}
-                        placeholder="Status"
-                        onChangeText={setStatus}
-                        keyboardType="numeric"
-                    />
+            <View style={styles.container}>
+                <ItemInput
+                    isItemFocus={isIdFocus}
+                    handleFocus={() => handleFocus('id')}
+                    placeholder="Id"
+                    onChangeText={setId}
+                />
+                <ItemInput
+                    isItemFocus={isNomorFocus}
+                    handleFocus={() => handleFocus('nomor')}
+                    placeholder="Nomor"
+                    onChangeText={setNomor}
+                />
+                <ItemInput
+                    isItemFocus={isStatusFocus}
+                    handleFocus={() => handleFocus('status')}
+                    placeholder="Status"
+                    onChangeText={setStatus}
+                />
 
 
-                    <Button text="Add" onPress={onSubmit} disabled={!(id && nomor && status) || loading}/>
-                    <Button text="Cancel" onPress={onBack}/>
-                </View>
+                <Button text="Add" onPress={onSubmit} disabled={!(id && nomor && status) || loading}/>
+                <ButtonOutline onPress={onBack} text="Cancel" />
             </View>
         </TouchableWithoutFeedback>
 
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, borderRadius: 15,
+        backgroundColor: 'white',
+        paddingHorizontal: 30,
+        padding: 30
+    },
+    button: {
+        paddingHorizontal: 30,
+        paddingVertical: 15,
+        borderRadius: 50,
+        marginTop: 20
+    },
+})
+
 
 export default AddTable

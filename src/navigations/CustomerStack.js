@@ -14,12 +14,6 @@ const CustomerStack = () => {
             <Stack.Screen name="Customer" component={Customer}
                           options={{
                               title: "Customer",
-                              headerStyle: {
-                                  backgroundColor: 'yellowgreen',
-                              },
-                              headerTitleStyle: {
-                                  color: 'white'
-                              },
                               headerLeft: () => null,
                               headerRight: () => {
                                   const navigation = useNavigation();
@@ -29,7 +23,7 @@ const CustomerStack = () => {
                                               marginRight: 10,
                                               paddingHorizontal: 10,
                                               paddingVertical: 5,
-                                              backgroundColor: 'orange',
+                                              backgroundColor: 'green',
                                               flexDirection: 'row',
                                               borderRadius: 50
                                           }}
@@ -45,28 +39,8 @@ const CustomerStack = () => {
 
                           }}
             />
-            <Stack.Screen name="Add Customer" component={AddCustomer}
-                          options={{
-                              headerStyle: {
-                                  backgroundColor: 'yellowgreen',
-                              },
-                              headerTitleStyle: {
-                                  color: 'white'
-                              },
-                              headerTintColor: 'white'
-                          }}
-            />
-            <Stack.Screen name="Edit Customer" component={EditCustomer}
-                          options={{
-                              headerStyle: {
-                                  backgroundColor: 'yellowgreen',
-                              },
-                              headerTitleStyle: {
-                                  color: 'white'
-                              },
-                              headerTintColor: 'white'
-                          }}
-            />
+            <Stack.Screen name="Add Customer" component={AddCustomer}/>
+            <Stack.Screen name="Edit Customer" component={EditCustomer}/>
         </Stack.Navigator>
     )
 }

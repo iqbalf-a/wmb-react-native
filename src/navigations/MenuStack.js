@@ -18,10 +18,7 @@ const MenuStack = () => {
                           options={{
                               title: "Menu",
                               headerStyle: {
-                                  backgroundColor: 'yellowgreen',
-                              },
-                              headerTitleStyle: {
-                                  color: 'white'
+                                  backgroundColor: 'white',
                               },
                               headerLeft: () => null,
                               headerRight: () => {
@@ -32,7 +29,7 @@ const MenuStack = () => {
                                               marginRight: 10,
                                               paddingHorizontal: 10,
                                               paddingVertical: 5,
-                                              backgroundColor: 'orange',
+                                              backgroundColor: 'green',
                                               flexDirection: 'row',
                                               borderRadius: 50
                                           }}
@@ -49,26 +46,10 @@ const MenuStack = () => {
                           }}
             />
             <Stack.Screen name="Add Menu" component={AddMenu}
-                          options={{
-                              headerStyle: {
-                                  backgroundColor: 'yellowgreen',
-                              },
-                              headerTitleStyle: {
-                                  color: 'white'
-                              },
-                              headerTintColor: 'white'
-                          }}
+
             />
             <Stack.Screen name="Edit Menu" component={EditMenu}
-                          options={{
-                              headerStyle: {
-                                  backgroundColor: 'yellowgreen',
-                              },
-                              headerTitleStyle: {
-                                  color: 'white'
-                              },
-                              headerTintColor: 'white'
-                          }}
+
             />
         </Stack.Navigator>
     )

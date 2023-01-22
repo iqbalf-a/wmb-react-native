@@ -4,6 +4,7 @@ import React from "react";
 import useFetchMutation from "../../../hook/useFetchMutation";
 import ItemInput from "../../../components/ItemInput/ItemInput";
 import {addCustomer} from "../../../services/customerAPi";
+import ButtonOutline from "../../../components/ButtonOutline/ButtonOutline";
 
 const AddCustomer = (props) => {
     const [id, setId] = React.useState('')
@@ -77,46 +78,53 @@ const AddCustomer = (props) => {
     }
     return (
         <TouchableWithoutFeedback onPress={handleKeyboardDismiss}>
-            <View style={{flex: 1}}>
-                <View style={{
-                    borderRadius: 15,
-                    backgroundColor: 'white',
-                    paddingHorizontal: 30,
-                    padding: 50,
-                    flex: 1
-                }}>
-                    <ItemInput
-                        isItemFocus={isIdFocus}
-                        handleFocus={() => handleFocus('id')}
-                        placeholder="Id"
-                        onChangeText={setId}
-                    />
-                    <ItemInput
-                        isItemFocus={isNamaFocus}
-                        handleFocus={() => handleFocus('nama')}
-                        placeholder="Nama"
-                        onChangeText={setNama}
-                    />
-                    <ItemInput
-                        isItemFocus={isEmailFocus}
-                        handleFocus={() => handleFocus('email')}
-                        placeholder="Email"
-                        onChangeText={setEmail}
-                    />
-                    <ItemInput
-                        isItemFocus={isAlamatFocus}
-                        handleFocus={() => handleFocus('alamat')}
-                        placeholder="Alamat"
-                        onChangeText={setAlamat}
-                    />
+            <View style={styles.container}>
+                <ItemInput
+                    isItemFocus={isIdFocus}
+                    handleFocus={() => handleFocus('id')}
+                    placeholder="Id"
+                    onChangeText={setId}
+                />
+                <ItemInput
+                    isItemFocus={isNamaFocus}
+                    handleFocus={() => handleFocus('nama')}
+                    placeholder="Nama"
+                    onChangeText={setNama}
+                />
+                <ItemInput
+                    isItemFocus={isEmailFocus}
+                    handleFocus={() => handleFocus('email')}
+                    placeholder="Email"
+                    onChangeText={setEmail}
+                />
+                <ItemInput
+                    isItemFocus={isAlamatFocus}
+                    handleFocus={() => handleFocus('alamat')}
+                    placeholder="Alamat"
+                    onChangeText={setAlamat}
+                />
 
 
-                    <Button text="Add" onPress={onSubmit} disabled={!(id && nama && email) || loading}/>
-                    <Button text="Cancel" onPress={onBack}/>
-                </View>
+                <Button text="Add" onPress={onSubmit} disabled={!(id && nama && email && alamat) || loading}/>
+                <ButtonOutline onPress={onBack} text="Cancel" />
             </View>
         </TouchableWithoutFeedback>
     )
 }
 
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, borderRadius: 15,
+        backgroundColor: 'white',
+        paddingHorizontal: 30,
+        padding: 30
+    },
+    button: {
+        paddingHorizontal: 30,
+        paddingVertical: 15,
+        borderRadius: 50,
+        marginTop: 20
+    },
+})
 export default AddCustomer
