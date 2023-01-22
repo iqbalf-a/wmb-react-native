@@ -65,7 +65,7 @@ const RenderCustomer = (props) => {
                 <TouchableOpacity style={[styles.actionSection, {
                     borderColor: 'grey'
                 }, {backgroundColor: 'red'}]}
-                                  onPress={onDelete(data?.item.id, data?.item.name)}
+                                  onPress={onDelete(data?.item.id, data?.item.nama)}
                 >
                     <Ionicons name={"trash-outline"} size={16}
                               color={'white'}
@@ -87,9 +87,9 @@ const Customer = () => {
         deleteCustomersById,
         () => alert("Berhasil ditambah")
     )
-    const onDelete = (id, name) => () => {
+    const onDelete = (id, nama) => () => {
 
-        Alert.alert('Delete Confirmation', 'Are you sure you want to delete ' + name, [
+        Alert.alert('Delete Confirmation', 'Are you sure you want to delete\n' + nama, [
             {
                 text: 'Cancel',
             },
