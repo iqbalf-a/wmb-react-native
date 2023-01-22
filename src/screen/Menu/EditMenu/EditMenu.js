@@ -26,7 +26,7 @@ const EditMenu = (props) => {
         props.navigation.navigate("Menu")
     }
 
-    const {fetchMutation, loading} = useFetchMutation(updateMenu(menu.item), onSuccess)
+    const {fetchMutation, loading} = useFetchMutation(updateMenu, onSuccess)
 
     const onSubmit = async (e) => {
         e.preventDefault()

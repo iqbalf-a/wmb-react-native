@@ -33,7 +33,7 @@ const EditTable = (props) => {
         props.navigation.navigate("Table")
     }
 
-    const {fetchMutation, loading} = useFetchMutation(updateTable(table.item), onSuccess)
+    const {fetchMutation, loading} = useFetchMutation(updateTable, onSuccess)
 
     const onSubmit = async (e) => {
         e.preventDefault()

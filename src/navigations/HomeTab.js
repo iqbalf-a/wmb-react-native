@@ -37,7 +37,7 @@ const BOTTOM_TAB_ITEM = [
         component: CustomerStack,
         iconActive: "people",
         iconInactive: "people-outline",
-        text: "People",
+        text: "Customer",
         headerShown: false
     },
     {

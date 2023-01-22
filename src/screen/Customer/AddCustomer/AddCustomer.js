@@ -29,9 +29,9 @@ const AddCustomer = (props) => {
         e.preventDefault()
         const newCustomer = {
             id: id,
-            name: nama,
+            alamat: alamat,
             email: email,
-            alamat: alamat
+            name: nama
         }
 
         await fetchMutation(newCustomer)
@@ -47,16 +47,25 @@ const AddCustomer = (props) => {
                 setIsIdFocus(true)
                 setIsNamaFocus(false)
                 setIsEmailFocus(false)
+                setIsAlamatFocus(false)
                 break
             case 'nama':
-                setIsNamaFocus(true)
                 setIsIdFocus(false)
+                setIsNamaFocus(true)
                 setIsEmailFocus(false)
+                setIsAlamatFocus(false)
                 break
-            case 'price':
-                setIsEmailFocus(true)
+            case 'email':
                 setIsIdFocus(false)
                 setIsNamaFocus(false)
+                setIsEmailFocus(true)
+                setIsAlamatFocus(false)
+                break
+            case 'alamat':
+                setIsIdFocus(false)
+                setIsNamaFocus(false)
+                setIsEmailFocus(false)
+                setIsAlamatFocus(true)
                 break
         }
     }
@@ -78,7 +87,6 @@ const AddCustomer = (props) => {
                 }}>
                     <ItemInput
                         isItemFocus={isIdFocus}
-                        icon="key-outline"
                         handleFocus={() => handleFocus('id')}
                         placeholder="Id"
                         onChangeText={setId}
@@ -91,10 +99,17 @@ const AddCustomer = (props) => {
                     />
                     <ItemInput
                         isItemFocus={isEmailFocus}
-                        handleFocus={() => handleFocus('price')}
-                        placeholder="Price"
+                        handleFocus={() => handleFocus('email')}
+                        placeholder="Email"
                         onChangeText={setEmail}
                     />
+                    <ItemInput
+                        isItemFocus={isAlamatFocus}
+                        handleFocus={() => handleFocus('alamat')}
+                        placeholder="Alamat"
+                        onChangeText={setAlamat}
+                    />
+
 
                     <Button text="Add" onPress={onSubmit} disabled={!(id && nama && email) || loading}/>
                     <Button text="Cancel" onPress={onBack}/>
