@@ -30,12 +30,11 @@ const EditCustomer = (props) => {
 
 
     const onSuccess = () => {
-        console.log('sukses nich')
         alert('Data berhasil diubah')
         props.navigation.navigate("Customer")
     }
 
-    const {fetchMutation, loading} = useFetchMutation(updateCustomer(customer.item), onSuccess)
+    const {fetchMutation, loading} = useFetchMutation(updateCustomer, onSuccess)
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -99,21 +98,29 @@ const EditCustomer = (props) => {
                     />
                     <ItemInput
                         isItemFocus={isNamaFocus}
-                        handleFocus={() => handleFocus('nomor')}
-                        placeholder="Nomor"
+                        handleFocus={() => handleFocus('nama')}
+                        placeholder="Nama"
+                        onChangeText={setNama}
+                        value={nama}
+                    />
+
+                    <ItemInput
+                        isItemFocus={isEmailFocus}
+                        handleFocus={() => handleFocus('email')}
+                        placeholder="Email"
                         onChangeText={setEmail}
                         value={email}
                     />
+
                     <ItemInput
-                        isItemFocus={isEmailFocus}
-                        handleFocus={() => handleFocus('status')}
-                        placeholder="Status"
-                        onChangeText={setStatus}
-                        value={status}
+                        isItemFocus={isAlamatFocus}
+                        handleFocus={() => handleFocus('alamat')}
+                        placeholder="Alamat"
+                        onChangeText={setAlamat}
+                        value={alamat}
                     />
 
-
-                    <Button text="Edit" onPress={onSubmit} disabled={!(id && email && status) || loading}/>
+                    <Button text="Edit" onPress={onSubmit} disabled={!(id && nama && email && alamat) || loading}/>
                     <Button text="Cancel" onPress={onBack}/>
                 </View>
             </View>
